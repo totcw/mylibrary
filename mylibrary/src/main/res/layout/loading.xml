@@ -1,0 +1,40 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/frame_loading"
+    android:background="@drawable/shape_corner_black"
+    android:padding="10dp"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/iv_loading_progressbar"
+            />
+
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/tv_jiazai"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_loading_progressbar"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:singleLine="true"
+            android:text="正在加载..."
+            android:textColor="#ffffffff"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+</FrameLayout>

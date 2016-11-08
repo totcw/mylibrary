@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/frame_load"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include layout="@layout/loading_page_empty"></include>
+    <include layout="@layout/loading_page_error"></include>
+
+
+    <com.betterda.mylibrary.view.LoadingView2
+        android:visibility="invisible"
+        android:id="@+id/loadview_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.betterda.mylibrary.view.LoadingView2>
+
+
+</FrameLayout>
