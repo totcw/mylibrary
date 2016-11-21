@@ -57,4 +57,5 @@
     <color name="green">#00CC00</color>
 
     <color name="group_list_gray">#999999</color>
+    <color name="BlackTransparent">#ff000000</color>
 </resources>
