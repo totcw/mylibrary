@@ -1,4 +1,4 @@
-package com.betterda.mylibrary.recyclevieload;
+package com.betterda.mylibrary.recycleviehelper;
 
 import android.view.View;
 

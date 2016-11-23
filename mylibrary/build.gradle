@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 // 这个version是区分library版本的，因此当我们需要更新library时记得修改这个version
-version = "2.2.6"
+version = "2.2.8"
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
@@ -23,7 +23,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/pinyin4j-2.5.0.jar')
-    compile 'com.android.support:support-v4:24.0.0-alpha1'
+
     compile 'com.android.support:recyclerview-v7:24.2.1'
 }
 def siteUrl = 'https://github.com/zhengxiaopeng/BounceProgressBar' // 项目的主页

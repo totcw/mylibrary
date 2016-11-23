@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * image  gradient
  * Created by Administrator on 2016/8/9.
  */
 public class Gradient extends RelativeLayout {

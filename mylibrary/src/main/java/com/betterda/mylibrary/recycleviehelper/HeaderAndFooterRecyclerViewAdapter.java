@@ -1,4 +1,4 @@
-package com.betterda.mylibrary.recyclevieload;
+package com.betterda.mylibrary.recycleviehelper;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * recycleview head  foot
@@ -13,7 +15,7 @@ import java.util.ArrayList;
  * <p/>
  * RecyclerView.Adapter with Header and Footer
  */
-public class HeaderAndFooterRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class HeaderAndFooterRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemTouchHelperAdapterListener {
 
     private static final int TYPE_HEADER_VIEW = Integer.MIN_VALUE;
     private static final int TYPE_FOOTER_VIEW = Integer.MIN_VALUE + 1;
@@ -25,6 +27,7 @@ public class HeaderAndFooterRecyclerViewAdapter extends RecyclerView.Adapter<Rec
 
     private ArrayList<View> mHeaderViews = new ArrayList<>();
     private ArrayList<View> mFooterViews = new ArrayList<>();
+    private List mItems;
 
     private RecyclerView.AdapterDataObserver mDataObserver = new RecyclerView.AdapterDataObserver() {
 
@@ -203,9 +206,32 @@ public class HeaderAndFooterRecyclerViewAdapter extends RecyclerView.Adapter<Rec
         }
     }
 
+    @Override
+    public void onItemDismiss(int position) {
+        if (mItems != null) {
+            mItems.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    @Override
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        if (mItems != null) {
+            Collections.swap(mItems, fromPosition, toPosition);
+            notifyItemMoved(fromPosition, toPosition);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(View itemView) {
             super(itemView);
         }
+    }
+
+    public void setmItems(List mItems) {
+        this.mItems = mItems;
     }
 }
