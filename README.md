@@ -140,5 +140,9 @@
         
        由ratio来决定宽高比,比如上面的ratio为2就表示宽和高的比例为2.这里的height只要设置一个固定值就好,其实是没有效果的,但不能为wrap_content.如上,宽为match_parent,ratio=2,那么高就是屏幕宽的一半.
     
-    
+    10.recycleview的item拖动和向左滑动删除
+        同上拉加载一样用HeaderAndFooterRecyclerViewAdapter来包装适配器,然后调用setmItems(List list)方法设置数据关联.
+        然后在ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SimpleItemTouchHelperCallback(adapter));
+        itemTouchHelper.attachToRecyclerView(rvBalance);
+        这样就将recycleview和itemTouchHelper关联起来了,就可以拖动或者滑动删除了
     
