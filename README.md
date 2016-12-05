@@ -23,7 +23,7 @@
             @Override
             public void show(boolean isShow) {
                 /**
-                 * listOrder表示rv的容器
+                 * listOrder表示每次从服务器获取的数据
                  * rvBalance 表示rv
                  * size 表示你分页请求的数量
                  */
@@ -31,6 +31,10 @@
                 RecyclerViewStateUtils.show(isShow, listOrder, rvBalance, this,size);
             }
         });
+        //当加载完数据以后,最好调用这个将 上拉加载隐藏
+          RecyclerViewStateUtils.setFooterViewState(activity,
+                    rv_query, LoadingFooter.State.Normal, null,false);
+                    
 3.LoadingPager 集成加载,加载错误,数据为空的界面
    使用方法:    <FrameLayout
         android:layout_above="@id/relative_balbance_bottom"
