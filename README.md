@@ -1,6 +1,6 @@
 # mylibrary
 
-这个库的使用只要在gradle中添加 compile 'com.betterda:mylibrary:2.2.8'即可
+这个库的使用只要在gradle中添加 compile 'com.betterda:mylibrary:2.3.0'即可
 
 
 1.自定义的Toast主要是为了解决在5.0以上用户关闭了通知时无法显示Toast的问题.用法很简单只要在之前使用系统的Toast的地方换成自己Toast就可以了,.但是要在baseactivity的ondestry方法中调用Toast.reset方法防止内存泄漏
