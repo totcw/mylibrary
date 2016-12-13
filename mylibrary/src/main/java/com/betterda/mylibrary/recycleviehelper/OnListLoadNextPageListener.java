@@ -13,10 +13,10 @@ public interface OnListLoadNextPageListener {
      *
      * @param view RecyclerView/ListView/GridView
      */
-    public void onLoadNextPage(View view);
+     void onLoadNextPage(View view);
     /**
      * is  show footer
      * @param isShow
      */
-    public void  show(boolean isShow);
+     void  show(boolean isShow);
 }

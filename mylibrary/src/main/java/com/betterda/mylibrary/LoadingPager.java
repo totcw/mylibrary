@@ -18,8 +18,8 @@ public class LoadingPager extends FrameLayout {
    private LoadingView2 loadview_pager;
 
     private FrameLayout frame_error, frame_empty;
-    private TextView tv_empty;
-    private ImageView iv_empty;
+    private TextView tv_empty,tv_error;
+    private ImageView iv_empty,iv_error;
 
     public LoadingPager(Context context) {
         this(context, null);
@@ -32,7 +32,9 @@ public class LoadingPager extends FrameLayout {
         frame_empty = (FrameLayout) findViewById(R.id.frame_empty);
         frame_error = (FrameLayout) findViewById(R.id.frame_error);
         tv_empty = (TextView) findViewById(R.id.tv_empty);
+        tv_error = (TextView) findViewById(R.id.page_bt);
         iv_empty = (ImageView) findViewById(R.id.iv_empty);
+        iv_error = (ImageView) findViewById(R.id.iv_error);
 
     }
 
@@ -104,6 +106,16 @@ public class LoadingPager extends FrameLayout {
         }
     }
 
+    public void setErrorBackground(int resid) {
+        if (iv_error != null) {
+            iv_error.setBackgroundResource(resid);
+        }
+    }
+
+    public void setLoadBackground(int resid) {
+        loadview_pager.setAnimBackgroundResrouse(resid);
+    }
+
     /**
      *
      */
@@ -111,6 +123,12 @@ public class LoadingPager extends FrameLayout {
     public void setEmptyText(String string) {
         if (tv_empty != null) {
             tv_empty.setText(string);
+        }
+    }
+
+    public void setErrorText(String string) {
+        if (tv_error != null) {
+            tv_error.setText(string);
         }
     }
 }

@@ -11,13 +11,9 @@ import java.util.List;
 
 /**
  * Created by cundong on 2015/11/9.
- *
- *
- *
- *
  */
 public class RecyclerViewStateUtils {
-    
+
     /**
      * setting headerAndFooterAdapterFooterView State
      *
@@ -28,14 +24,23 @@ public class RecyclerViewStateUtils {
      */
     public static void setFooterViewState(Activity instance, RecyclerView recyclerView, LoadingFooter.State state, View.OnClickListener errorListener) {
 
-        if(instance==null || instance.isFinishing()||recyclerView==null) {
+        setViewState(instance, recyclerView, state, errorListener, true);
+    }
+
+    public static void setFooterViewState(Activity instance, RecyclerView recyclerView, LoadingFooter.State state, View.OnClickListener errorListener, boolean isShow) {
+
+        setViewState(instance, recyclerView, state, errorListener, isShow);
+    }
+
+    private static void setViewState(Activity instance, RecyclerView recyclerView, LoadingFooter.State state, View.OnClickListener errorListener, boolean isShow) {
+        if (instance == null || instance.isFinishing() || recyclerView == null) {
             return;
         }
 
         RecyclerView.Adapter outerAdapter = recyclerView.getAdapter();
 
 
-        if (outerAdapter == null ) {
+        if (outerAdapter == null) {
             return;
         }
 
@@ -46,7 +51,8 @@ public class RecyclerViewStateUtils {
 
         if (headerAndFooterAdapter.getFooterViewsCount() > 0) {
             footerView = (LoadingFooter) headerAndFooterAdapter.getFooterView();
-            footerView.setState(state,true);
+
+            footerView.setState(state, isShow);
 
             if (state == LoadingFooter.State.NetWorkError) {
                 footerView.setOnClickListener(errorListener);
@@ -55,7 +61,7 @@ public class RecyclerViewStateUtils {
         } else {
 
             footerView = new LoadingFooter(instance);
-            footerView.setState(state,true);
+            footerView.setState(state, false);
 
             if (state == LoadingFooter.State.NetWorkError) {
                 footerView.setOnClickListener(errorListener);
@@ -67,8 +73,6 @@ public class RecyclerViewStateUtils {
     }
 
     /**
-     *
-     *
      * @param recyclerView
      */
     public static LoadingFooter.State getFooterViewState(RecyclerView recyclerView) {
@@ -85,81 +89,81 @@ public class RecyclerViewStateUtils {
     }
 
 
+    /*
+       *
+       * @param list rv
+       * @param rv_query
+       * @param activity
+       * @param size
+       */
+    public static void setLoad(List list, RecyclerView rv_query, Activity activity, int size) {
 
 
-
-  /*
-     *
-     * @param list rv
-     * @param rv_query
-     * @param activity
-     * @param size
-     */
-    public static   void setLoad(List list, RecyclerView rv_query, Activity activity,int size) {
+        if (list != null && list.size() >= size) {
 
 
-        if (list != null && rv_query != null && activity != null) {
-            if (list.size() >= size) {
+            RecyclerViewStateUtils.setFooterViewState(activity,
+                    rv_query, LoadingFooter.State.Normal, null);
 
-                RecyclerViewStateUtils.setFooterViewState(activity,
-                        rv_query,  LoadingFooter.State.Normal, null);
+        } else {
 
-            } else {
+            RecyclerViewStateUtils.setFooterViewState(activity,
+                    rv_query, LoadingFooter.State.TheEnd, null);
 
-                RecyclerViewStateUtils.setFooterViewState(activity,
-                        rv_query, LoadingFooter.State.TheEnd, null);
-
-            }
         }
+
 
     }
 
 
     /**
-     *
      * @param recyclerView
      * @param state
      * @param errorListener
      */
-    public static void change(RecyclerView recyclerView, LoadingFooter.State state, View.OnClickListener errorListener) {
+    public static void change(Activity activity,RecyclerView recyclerView, LoadingFooter.State state, View.OnClickListener errorListener) {
 
-        if(recyclerView==null) {
+        if (recyclerView == null) {
             return;
         }
 
         RecyclerView.Adapter outerAdapter = recyclerView.getAdapter();
 
 
-        if (outerAdapter == null ) {
+        if (outerAdapter == null) {
             return;
         }
         HeaderAndFooterRecyclerViewAdapter headerAndFooterAdapter = (HeaderAndFooterRecyclerViewAdapter) outerAdapter;
 
         if (headerAndFooterAdapter.getFooterViewsCount() > 0) {
             LoadingFooter footerView = (LoadingFooter) headerAndFooterAdapter.getFooterView();
-            footerView.setState(state,false);
+            footerView.setState(state, false);
 
             if (state == LoadingFooter.State.NetWorkError) {
                 footerView.setOnClickListener(errorListener);
             }
 
 
+        } else {
+            RecyclerViewStateUtils.setFooterViewState(activity,
+                    recyclerView, LoadingFooter.State.Normal, null,false);
         }
     }
 
     /**
      * judge is show footer
+     *
      * @param isShow
      * @param list
      * @param recyclerView
      * @param activity
-     * @param size count of page
+     * @param size         count of page
      */
-    public static   void show(boolean isShow, List list, RecyclerView recyclerView, Activity activity,int size) {
+    public static void show(boolean isShow, List list, RecyclerView recyclerView, Activity activity, int size) {
         if (isShow) {
-            RecyclerViewStateUtils.setLoad(list, recyclerView, activity,size);
+            RecyclerViewStateUtils.setLoad(list, recyclerView, activity, size);
         } else {
-            RecyclerViewStateUtils.change(recyclerView, LoadingFooter.State.TheEnd, null);
+            RecyclerViewStateUtils.change(activity,recyclerView, LoadingFooter.State.TheEnd, null);
         }
     }
 
@@ -178,7 +182,7 @@ public class RecyclerViewStateUtils {
         }
     }
 
-    public interface nextListener{
+    public interface nextListener {
         void load();
     }
 

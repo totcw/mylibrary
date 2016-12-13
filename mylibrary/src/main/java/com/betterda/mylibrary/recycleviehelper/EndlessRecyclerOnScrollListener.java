@@ -68,7 +68,6 @@ public class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListen
                 lastVisibleItemPosition = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
 
 
-
                 break;
             case GridLayout:
                 lastVisibleItemPosition = ((GridLayoutManager) layoutManager).findLastVisibleItemPosition();
@@ -93,22 +92,33 @@ public class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListen
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
         int visibleItemCount = layoutManager.getChildCount();
         int totalItemCount = layoutManager.getItemCount();
+        //judge data is over screen
+        int firstCompletelyVisibleItemPosition = 0;
+        int lastCompletelyVisibleItemPosition = 0;
+        if (layoutManager instanceof LinearLayoutManager) {
+            firstCompletelyVisibleItemPosition =  ((LinearLayoutManager) layoutManager).findFirstCompletelyVisibleItemPosition();
+            lastCompletelyVisibleItemPosition = ((LinearLayoutManager) layoutManager).findLastCompletelyVisibleItemPosition();
+        } else if (layoutManager instanceof GridLayoutManager) {
+            firstCompletelyVisibleItemPosition = ((GridLayoutManager) layoutManager).findFirstCompletelyVisibleItemPosition();
+            lastCompletelyVisibleItemPosition = ((GridLayoutManager) layoutManager).findLastCompletelyVisibleItemPosition();
+        }
+
+        int vieable = lastCompletelyVisibleItemPosition - firstCompletelyVisibleItemPosition;
+        count = layoutManager.getItemCount();
+        if (count <= 0) {
+            return;
+        }
+
 
         if ((visibleItemCount > 0 && currentScrollState == RecyclerView.SCROLL_STATE_IDLE && (lastVisibleItemPosition) >= totalItemCount - 1)) {
+            if (vieable + 1 < count) {//show footer
+                show(true);
+            } else {
+
+                show(false);
+            }
             onLoadNextPage(recyclerView);
         }
-        //judge data is over screen
-        int firstCompletelyVisibleItemPosition = ((LinearLayoutManager) layoutManager).findFirstCompletelyVisibleItemPosition();
-        int lastCompletelyVisibleItemPosition = ((LinearLayoutManager) layoutManager).findLastCompletelyVisibleItemPosition();
-        int vieable = lastCompletelyVisibleItemPosition - firstCompletelyVisibleItemPosition;
-        count = ((LinearLayoutManager) layoutManager).getItemCount();
-        if (vieable + 1 < count) {//show footer
-            show(true);
-        } else {
-
-            show(false);
-        }
-
     }
 
     /**

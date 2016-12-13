@@ -46,4 +46,8 @@ public class LoadingView2 extends FrameLayout {
            mAnimation.stop();
         }
     }
+
+    public void setAnimBackgroundResrouse(int id) {
+        imageView.setBackgroundResource(id);
+    }
 }
