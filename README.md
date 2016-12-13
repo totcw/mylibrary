@@ -1,9 +1,9 @@
 # mylibrary
 
-这个库的使用只要在gradle中添加 compile 'com.betterda:mylibrary:2.2.6'即可
+这个库的使用只要在gradle中添加 compile 'com.betterda:mylibrary:2.3.0'即可
 
 
-1.自定义的Toast主要是为了解决在5.0以上用户关闭了通知时无法显示Toast的问题.用法很简单只要在之前使用系统的Toast的地方换成自己Toast就可以了
+1.自定义的Toast主要是为了解决在5.0以上用户关闭了通知时无法显示Toast的问题.用法很简单只要在之前使用系统的Toast的地方换成自己Toast就可以了,.但是要在baseactivity的ondestry方法中调用Toast.reset方法防止内存泄漏
 
 2.recycleview上拉加载的使用
   首先使用HeaderAndFooterRecyclerViewAdapter来包装普通的适配器.
@@ -23,7 +23,7 @@
             @Override
             public void show(boolean isShow) {
                 /**
-                 * listOrder表示rv的容器
+                 * listOrder表示每次从服务器获取的数据
                  * rvBalance 表示rv
                  * size 表示你分页请求的数量
                  */
@@ -31,6 +31,10 @@
                 RecyclerViewStateUtils.show(isShow, listOrder, rvBalance, this,size);
             }
         });
+        //当加载完数据以后,最好调用这个将 上拉加载隐藏
+          RecyclerViewStateUtils.setFooterViewState(activity,
+                    rv_query, LoadingFooter.State.Normal, null,false);
+                    
 3.LoadingPager 集成加载,加载错误,数据为空的界面
    使用方法:    <FrameLayout
         android:layout_above="@id/relative_balbance_bottom"
@@ -140,5 +144,9 @@
         
        由ratio来决定宽高比,比如上面的ratio为2就表示宽和高的比例为2.这里的height只要设置一个固定值就好,其实是没有效果的,但不能为wrap_content.如上,宽为match_parent,ratio=2,那么高就是屏幕宽的一半.
     
-    
+    10.recycleview的item拖动和向左滑动删除
+        同上拉加载一样用HeaderAndFooterRecyclerViewAdapter来包装适配器,然后调用setmItems(List list)方法设置数据关联.
+        然后在ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SimpleItemTouchHelperCallback(adapter));
+        itemTouchHelper.attachToRecyclerView(rvBalance);
+        这样就将recycleview和itemTouchHelper关联起来了,就可以拖动或者滑动删除了
     
