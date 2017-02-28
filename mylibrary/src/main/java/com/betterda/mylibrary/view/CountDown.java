@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.betterda.mylibrary.R;
@@ -17,6 +18,7 @@ import com.betterda.mylibrary.R;
 public class CountDown extends FrameLayout {
     private TextView tv_yzm;
     private  TextView tv_countdown;
+    private RelativeLayout  mRelativeCountdown;
     private Handler handler = new Handler();
     private int time = 60;
     private onSelectListener listener;
@@ -38,6 +40,7 @@ public class CountDown extends FrameLayout {
         View.inflate(context, R.layout.countdown_view,this);
         tv_yzm = (TextView) findViewById(R.id.tv_countdown_yzm);
         tv_countdown = (TextView) findViewById(R.id.tv_countdown);
+        mRelativeCountdown = (RelativeLayout) findViewById(R.id.relative_countdown);
     }
 
 
@@ -85,6 +88,10 @@ public class CountDown extends FrameLayout {
 
     public interface onSelectListener {
         void setSelect(CountDown countDown);
+    }
+
+    public void setCountdownBackground(int resid) {
+        mRelativeCountdown.setBackgroundResource(resid);
     }
 
 }

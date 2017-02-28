@@ -12,11 +12,12 @@
 
         <ImageView
             android:id="@+id/iv_error"
-            android:layout_width="128dp"
+            android:layout_width="153dp"
             android:layout_height="153dp"
             android:layout_centerHorizontal="true"
             android:scaleType="centerInside"
-            android:src="@mipmap/ic_error_page" />
+            android:background="@mipmap/ic_error_page"
+           />
 
         <TextView
             android:id="@+id/page_bt"

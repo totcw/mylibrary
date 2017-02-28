@@ -15,7 +15,7 @@ import java.util.List;
 
 public class SortAdapter extends BaseAdapter implements SectionIndexer {
     private List<CitySortModel> list = null;
-    private Context mContext;
+    private Context mContext;//中文
 
     public SortAdapter(Context mContext, List<CitySortModel> list) {
         this.mContext = mContext;

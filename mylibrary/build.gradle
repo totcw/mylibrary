@@ -2,13 +2,13 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 // 这个version是区分library版本的，因此当我们需要更新library时记得修改这个version
-version = "2.3.7"
+version = "2.5.4"
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
     resourcePrefix "better"
     defaultConfig {
-        minSdkVersion 9
+        minSdkVersion 14
         targetSdkVersion 22
         versionCode 1
         versionName version
@@ -26,6 +26,17 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
 }
+
+allprojects {
+    tasks.withType(Javadoc) {
+        options{
+            encoding "UTF-8"
+            charSet 'UTF-8'
+            links "http://docs.oracle.com/javase/7/docs/api"
+        }
+    }
+}
+
 def siteUrl = 'https://github.com/zhengxiaopeng/BounceProgressBar' // 项目的主页
 def gitUrl = 'https://github.com/zhengxiaopeng/BounceProgressBar.git' // Git仓库的url
 group = "com.betterda" // Maven Group ID for the artifact，一般填你唯一的包名

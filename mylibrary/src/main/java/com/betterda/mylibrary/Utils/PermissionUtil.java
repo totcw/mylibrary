@@ -28,6 +28,7 @@ public class PermissionUtil {
     public  static void checkPermission(final Activity activity,View view, final String[] permissions, final int requestCode,permissionInterface permissionInterface) {
         //Less than 23 do nothing.
         if (Build.VERSION.SDK_INT < 23) {
+            permissionInterface.success();
             return;
         }
         List<String> deniedPermissions = findDeniedPermissions(activity, permissions);

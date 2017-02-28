@@ -15,7 +15,8 @@ import com.betterda.mylibrary.view.LoadingView2;
  * Created by Administrator on 2016/5/11.
  */
 public class LoadingPager extends FrameLayout {
-   private LoadingView2 loadview_pager;
+   private LoadingView2 loadview_pager;//加载界面
+
 
     private FrameLayout frame_error, frame_empty;
     private TextView tv_empty,tv_error;
@@ -109,6 +110,7 @@ public class LoadingPager extends FrameLayout {
     public void setErrorBackground(int resid) {
         if (iv_error != null) {
             iv_error.setBackgroundResource(resid);
+
         }
     }
 
