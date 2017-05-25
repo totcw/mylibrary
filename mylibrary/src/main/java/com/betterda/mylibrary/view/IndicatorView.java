@@ -17,8 +17,8 @@ import com.betterda.mylibrary.R;
  */
 public class IndicatorView extends LinearLayout {
 
-    private ImageView iv_bottom;
-    private TextView tv_bottom;
+    private ImageView mIvBottm;
+    private TextView mTvBottom;
     private int normalColor;
     private int selectColor;
     private int normaliv;
@@ -33,8 +33,8 @@ public class IndicatorView extends LinearLayout {
 
         View.inflate(context, R.layout.bottom_layout, this);
       //  bottom_line = findViewById(R.id.bottom_line);
-        iv_bottom = (ImageView) findViewById(R.id.iv_bottom);
-        tv_bottom = (TextView) findViewById(R.id.tv_bottom);
+        mIvBottm = (ImageView) findViewById(R.id.iv_bottom);
+        mTvBottom = (TextView) findViewById(R.id.tv_bottom);
     }
 
     /**
@@ -43,7 +43,7 @@ public class IndicatorView extends LinearLayout {
      * @param title
      */
     public void setTitle(String title) {
-        tv_bottom.setText(title);
+        mTvBottom.setText(title);
     }
 
     /**
@@ -56,7 +56,7 @@ public class IndicatorView extends LinearLayout {
         this.normaliv = normaliv;
         this.selectiv = selectiv;
         //
-        iv_bottom.setBackgroundResource(normaliv);
+        mIvBottm.setBackgroundResource(normaliv);
 
     }
 
@@ -71,7 +71,7 @@ public class IndicatorView extends LinearLayout {
         this.selectColor = selectColor;
         //
      //   bottom_line.setBackgroundColor(normalColor);
-        tv_bottom.setTextColor(normalColor);
+        mTvBottom.setTextColor(normalColor);
 
     }
 
@@ -83,14 +83,20 @@ public class IndicatorView extends LinearLayout {
     public void setTabSelected(boolean selected) {
         if (selected) {
           //  bottom_line.setBackgroundColor(selectColor);
-          tv_bottom.setTextColor(selectColor);
-            iv_bottom.setBackgroundResource(selectiv);
+          mTvBottom.setTextColor(selectColor);
+            mIvBottm.setBackgroundResource(selectiv);
         } else {
           //  bottom_line.setBackgroundColor(normalColor);
-            tv_bottom.setTextColor(normalColor);
-            iv_bottom.setBackgroundResource(normaliv);
+            mTvBottom.setTextColor(normalColor);
+            mIvBottm.setBackgroundResource(normaliv);
         }
     }
 
+    public ImageView getIvBottm() {
+        return mIvBottm;
+    }
 
+    public TextView getTvBottom() {
+        return mTvBottom;
+    }
 }
