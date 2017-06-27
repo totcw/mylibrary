@@ -103,6 +103,7 @@ public class EToast {
                     public void onAnimationEnd(Animation animation) {
 
                         mContainer.setVisibility(View.GONE);
+                        reset();
                     }
 
                     @Override
@@ -135,6 +136,14 @@ public class EToast {
     public static void reset(){
         if (result != null) {
             result.remove();
+            result.v = null;
+            result.mTextView = null;
+            result.mContainer = null;
+            result.container = null;
+            result.mFadeInAnimation = null;
+            result.mFadeOutAnimation = null;
+            result.mHandler = null;
+            result.mContext = null;
             result = null;
         }
     }
@@ -143,9 +152,10 @@ public class EToast {
      * remove last toast when change activity
      */
     public void remove() {
-        if (container != null) {
+        if (container != null&&mContainer!=null) {
             container.removeView(mContainer);
         }
+
     }
 
 
