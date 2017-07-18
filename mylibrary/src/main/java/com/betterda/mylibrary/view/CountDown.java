@@ -94,4 +94,25 @@ public class CountDown extends FrameLayout {
         mRelativeCountdown.setBackgroundResource(resid);
     }
 
+
+    public void setTvYzmColor(int color) {
+        tv_yzm.setTextColor(color);
+    }
+
+    public void setTvCountDownColor(int color) {
+        tv_countdown.setTextColor(color);
+    }
+
+    public void setTvYzmSize(float size) {
+        tv_yzm.setTextSize(size);
+    }
+
+    public void setTvCountDownSize(float size) {
+        tv_countdown.setTextSize(size);
+    }
+
+    public void setBackground(int resId) {
+        mRelativeCountdown.setBackgroundResource(resId);
+    }
+
 }

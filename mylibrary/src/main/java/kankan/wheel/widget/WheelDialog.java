@@ -4,10 +4,14 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.betterda.mylibrary.R;
@@ -31,9 +35,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 
-
 /**
- *
  * @author Administrator
  */
 public class WheelDialog extends Dialog implements
@@ -43,6 +45,7 @@ public class WheelDialog extends Dialog implements
     private com.betterda.mylibrary.wheel.widget.views.WheelView mViewCity; //
     private com.betterda.mylibrary.wheel.widget.views.WheelView mViewDistrict;//
     private Button mBtnConfirm; //
+    private EditText mEtWheel; //
 
     private OnAddressCListener onAddressCListener;
     /**
@@ -94,6 +97,7 @@ public class WheelDialog extends Dialog implements
 
     private int maxsize = 24;
     private int minsize = 14;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,7 +108,6 @@ public class WheelDialog extends Dialog implements
         // setting provice data
         proviceAdapter = new AddressTextAdapter(context, mProvinceDatass, 0, maxsize, minsize);
         mViewProvince.setViewAdapter(proviceAdapter);
-
 
 
         // setting vieable item
@@ -120,6 +123,7 @@ public class WheelDialog extends Dialog implements
         mViewCity = (com.betterda.mylibrary.wheel.widget.views.WheelView) findViewById(R.id.id_city);
         mViewDistrict = (com.betterda.mylibrary.wheel.widget.views.WheelView) findViewById(R.id.id_district);
         mBtnConfirm = (Button) findViewById(R.id.btn_confirm);
+        mEtWheel = (EditText) findViewById(R.id.et_wheel);
     }
 
     /**
@@ -140,6 +144,7 @@ public class WheelDialog extends Dialog implements
             public void onScrollingFinished(WheelView wheel) {
                 String currentText = (String) proviceAdapter.getItemText(wheel.getCurrentItem());
                 setTextviewSize(currentText, proviceAdapter);
+
             }
         });
 
@@ -166,6 +171,31 @@ public class WheelDialog extends Dialog implements
             public void onScrollingFinished(WheelView wheel) {
                 String currentText = (String) areaAdapter.getItemText(wheel.getCurrentItem());
                 setTextviewSize(currentText, areaAdapter);
+            }
+        });
+
+        mEtWheel.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (null != s) {
+                    if (!TextUtils.isEmpty(s.toString())) {
+                        int indexOf = mProvinceDatass.indexOf(s.toString());
+                        if (indexOf >= 0 && indexOf < mProvinceDatass.size()) {
+                            //设置到指定位置,其实这里会先回调onchange,所以在那里面设置当前itemname即可
+                            mViewProvince.setCurrentItem(indexOf);
+                        }
+                    }
+                }
             }
         });
 
@@ -207,12 +237,13 @@ public class WheelDialog extends Dialog implements
     public void setTextviewSize(String curriteItemText, AddressTextAdapter adapter) {
         ArrayList<View> arrayList = adapter.getTestViews();
         int size = arrayList.size();
+
         String currentText;
         for (int i = 0; i < size; i++) {
             TextView textvew = (TextView) arrayList.get(i);
             currentText = textvew.getText().toString();
             if (curriteItemText.equals(currentText)) {
-                textvew.setTextSize(24);
+                textvew.setTextSize(maxsize);
             } else {
                 textvew.setTextSize(14);
             }
@@ -225,14 +256,14 @@ public class WheelDialog extends Dialog implements
     private void updateAreas() {
         int pCurrent = mViewCity.getCurrentItem();
         mCurrentCityName = mCitisDatasMap.get(mCurrentProviceName)[pCurrent];
-        setTextviewSize(mCurrentCityName,cityAdapter);
+        setTextviewSize(mCurrentCityName, cityAdapter);
         String[] areas = mDistrictDatasMap.get(mCurrentCityName);
 
         if (areas == null) {
             areas = new String[]{""};
         }
 
-        areaAdapter = new AddressTextAdapter(context, Arrays.asList(areas),0,maxsize,minsize);
+        areaAdapter = new AddressTextAdapter(context, Arrays.asList(areas), 0, maxsize, minsize);
         mViewDistrict.setViewAdapter(areaAdapter);
         mViewDistrict.setCurrentItem(0);
 
@@ -246,12 +277,13 @@ public class WheelDialog extends Dialog implements
     private void updateCities() {
         int pCurrent = mViewProvince.getCurrentItem();
         mCurrentProviceName = mProvinceDatass.get(pCurrent);
-        setTextviewSize(mCurrentProviceName,proviceAdapter);
+        setTextviewSize(mCurrentProviceName, proviceAdapter);
+        proviceAdapter.setCurrentName(mCurrentProviceName);
         String[] cities = mCitisDatasMap.get(mCurrentProviceName);
         if (cities == null) {
             cities = new String[]{""};
         }
-        cityAdapter = new AddressTextAdapter(context, Arrays.asList(cities),0,maxsize,minsize);
+        cityAdapter = new AddressTextAdapter(context, Arrays.asList(cities), 0, maxsize, minsize);
         mViewCity.setViewAdapter(cityAdapter);
         mViewCity.setCurrentItem(0);
 
@@ -273,7 +305,7 @@ public class WheelDialog extends Dialog implements
         } else if (wheel == mViewDistrict) {
             mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[newValue];
             mCurrentZipCode = mZipcodeDatasMap.get(mCurrentDistrictName);
-            setTextviewSize(mCurrentDistrictName,areaAdapter);
+            setTextviewSize(mCurrentDistrictName, areaAdapter);
         }
 
     }
@@ -365,5 +397,15 @@ public class WheelDialog extends Dialog implements
 
     }
 
+    /**
+     * 设置地区是否显示 ,但是要在show以后才能调用
+     *
+     * @param isShow
+     */
+    public void setViewDistrictShow(boolean isShow) {
+        if (mViewDistrict != null) {
 
+            mViewDistrict.setVisibility(isShow ? View.VISIBLE : View.GONE);
+        }
+    }
 }

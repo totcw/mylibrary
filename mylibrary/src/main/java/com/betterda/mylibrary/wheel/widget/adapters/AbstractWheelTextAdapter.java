@@ -19,12 +19,15 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import kankan.wheel.widget.WheelDialog;
 
 /**
  * Abstract wheel adapter provides common functionality for adapters.
@@ -66,6 +69,9 @@ public abstract class AbstractWheelTextAdapter extends AbstractWheelAdapter {
 	private static int maxsize = 24;
 	private static int minsize = 14;
 	private ArrayList<View> arrayList = new ArrayList<View>();
+
+	private int choseItem;
+    private String currentName;
 
 	/**
 	 * Constructor
@@ -228,6 +234,7 @@ public abstract class AbstractWheelTextAdapter extends AbstractWheelAdapter {
 
 	@Override
 	public View getItem(int index, View convertView, ViewGroup parent) {
+
 		if (index >= 0 && index < getItemsCount()) {
 			if (convertView == null) {
 				convertView = getView(itemResourceId, parent);
@@ -238,10 +245,13 @@ public abstract class AbstractWheelTextAdapter extends AbstractWheelAdapter {
 			}
 			if (textView != null) {
 				CharSequence text = getItemText(index);
+
 				if (text == null) {
 					text = "";
 				}
 				textView.setText(text);
+				//设置指定当前选中的字体为24
+				setTextviewSize(currentName);
 
 				if (index == currentIndex) {
 					textView.setTextSize(maxsize);
@@ -325,5 +335,31 @@ public abstract class AbstractWheelTextAdapter extends AbstractWheelAdapter {
 		default:
 			return inflater.inflate(resource, parent, false);
 		}
+	}
+
+
+	public void setTextviewSize(String curriteItemText) {
+        if (TextUtils.isEmpty(curriteItemText)) {
+            return;
+        }
+        int size = arrayList.size();
+		String currentText;
+		for (int i = 0; i < size; i++) {
+			TextView textvew = (TextView) arrayList.get(i);
+			currentText = textvew.getText().toString();
+            if (curriteItemText.equals(currentText)) {
+				textvew.setTextSize(maxsize);
+			} else {
+				textvew.setTextSize(14);
+			}
+		}
+	}
+
+	public String getCurrentName() {
+		return currentName;
+	}
+
+	public void setCurrentName(String currentName) {
+		this.currentName = currentName;
 	}
 }

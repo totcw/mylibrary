@@ -99,6 +99,10 @@ public class WheelView extends View {
 	private List<OnWheelScrollListener> scrollingListeners = new LinkedList<OnWheelScrollListener>();
 	private List<OnWheelClickedListener> clickingListeners = new LinkedList<OnWheelClickedListener>();
 
+
+
+	private int choseItem;//chose's item
+
 	/**
 	 * Constructor
 	 */
@@ -866,6 +870,7 @@ public class WheelView extends View {
 
 		// add views
 		int addItems = visibleItems / 2;
+		choseItem = addItems;
 		for (int i = currentItem + addItems; i >= currentItem - addItems; i--) {
 			if (addViewItem(i, true)) {
 				firstItem = i;
@@ -938,5 +943,18 @@ public class WheelView extends View {
 	 */
 	public void stopScrolling() {
 		scroller.stopScrolling();
+	}
+
+
+	/**
+	 * get item
+	 * @return
+	 */
+	public int getChoseItem() {
+		return choseItem;
+	}
+
+	public void setChoseItem(int choseItem) {
+		this.choseItem = choseItem;
 	}
 }
