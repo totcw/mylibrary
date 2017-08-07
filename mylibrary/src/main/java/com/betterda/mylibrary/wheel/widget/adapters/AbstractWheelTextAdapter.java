@@ -250,7 +250,7 @@ public abstract class AbstractWheelTextAdapter extends AbstractWheelAdapter {
 					text = "";
 				}
 				textView.setText(text);
-				//设置指定当前选中的字体为24
+				//setting  textsize as 24
 				setTextviewSize(currentName);
 
 				if (index == currentIndex) {

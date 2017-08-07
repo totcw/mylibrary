@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 // 这个version是区分library版本的，因此当我们需要更新library时记得修改这个version
-version = "2.6.1"
+version = "2.6.2"
 android {
     compileSdkVersion 23
     buildToolsVersion '25.0.0'
@@ -28,7 +28,7 @@ dependencies {
 }
 
 allprojects {
-    tasks.withType(Javadoc) {//解决中文和特殊字符问题
+    tasks.withType(Javadoc) { //兼容中文
         options.addStringOption('Xdoclint:none','-quiet')
         options.addStringOption('encoding','UTF-8')
         options{

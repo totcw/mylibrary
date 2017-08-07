@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/iv_error"
-            android:layout_width="153dp"
-            android:layout_height="153dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:scaleType="centerInside"
             android:background="@mipmap/ic_error_page"

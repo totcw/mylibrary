@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/iv_loading_run"
-            android:layout_width="128dp"
-            android:layout_height="153dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:scaleType="fitXY"
              />
